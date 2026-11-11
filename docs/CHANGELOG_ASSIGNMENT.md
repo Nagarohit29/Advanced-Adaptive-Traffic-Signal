@@ -30,6 +30,9 @@ To satisfy the 10 assignment requirements while respecting all repository standa
    - Added a clear, transparent **"Assignment & MDP Enhancements (Old vs. New)"** section.
    - Explicitly contrasts the preexisting baseline with the new formal MDP components, Bellman value analysis, prototype walkthrough, and links to all assignment documentation in `docs/`.
 
+6. **Dedicated 10-Point Submission Reference (`docs/FUNDAMENTALS_OF_RL_ASSIGNMENT_10_POINTS.md`):**
+   - Standalone reference document mapping verbatim to the 10 prompt questions for seamless evaluation and grading.
+
 ---
 
 ## 2. Approach and Implementation by Requirement

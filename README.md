@@ -31,7 +31,8 @@ This repository serves as a submission for the **Fundamentals of Reinforcement L
 | **Documentation & Navigation (Item 10)** | General architecture notes. | Complete master assignment report (`docs/assignment_rl_fundamentals.md`) and assignment changelog (`docs/CHANGELOG_ASSIGNMENT.md`). | Organizes all assignment deliverables into structured, self-contained reference documents supported by formal literature citations. |
 
 ### Assignment Deliverables in `docs/`:
-- **[Complete Assignment Report (10-Point Analysis)](docs/assignment_rl_fundamentals.md):** The comprehensive submission covering all theoretical, mathematical, diagrammatic, and empirical questions.
+- **[10-Point Assignment Submission Guide](docs/FUNDAMENTALS_OF_RL_ASSIGNMENT_10_POINTS.md):** Point-by-point breakdown mapping directly to all 10 assignment questions.
+- **[Complete Assignment Report (10-Point Analysis)](docs/assignment_rl_fundamentals.md):** The comprehensive technical report covering all theoretical, mathematical, diagrammatic, and empirical questions.
 - **[Clear Distinction: MDP Design vs. Future RL Implementation](docs/mdp_vs_rl_distinction.md):** Dedicated analysis of Item 9 isolating the formal MDP model from computational RL algorithms and future multi-agent frontiers.
 - **[Assignment Changelog & Approach](docs/CHANGELOG_ASSIGNMENT.md):** Detailed record of changes, approach, and implementation methodology.
 
