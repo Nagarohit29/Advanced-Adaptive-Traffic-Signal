@@ -16,6 +16,27 @@ fixed timer, both facing the same random arrivals. Demand starts north-south hea
 out, then turns east-west heavy. A fixed split can only suit one of those periods, so the
 timer's queues build up in the last third while the agent's stay short.
 
+## Fundamentals of RL Assignment: Overview of Enhancements (Old vs. New)
+
+This repository serves as a submission for the **Fundamentals of Reinforcement Learning** assignment, addressing all 10 core items specified in the curriculum. The table below highlights what was originally in the project repository versus the newly added theoretical models, Bellman calculations, and prototype tools:
+
+| Dimension / Requirement | Pre-existing Codebase (Old) | Assignment Enhancements (New) | Why Changed & How It Helps Better |
+|---|---|---|---|
+| **MDP Modeling & Formalism (Items 1–4)** | Simulation environment (`SimpleTrafficEnv`) and raw observation/action spaces. | Formal 5-tuple Finite MDP $\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle$, discrete 1536-state derivation, analytical Poisson arrival / Binomial departure distributions, and Markov property proof. | Transitions the project from an informal simulation experiment into an academically rigorous, mathematically sound Markov Decision Process. |
+| **MDP Representations (Item 5)** | Textual tables in internal docs. | Formal Mermaid state-transition diagrams (depicting yellow clearance intervals and phase loops), decision epoch flowcharts, and complete state/action discretization tables. | Visually clarifies how the agent navigates states, handles yellow clearance lost time, and makes sequential decisions. |
+| **Bellman Equation Analysis (Item 6)** | Standard Q-learning TD updates in code without explicit state-level Bellman checks. | Comprehensive Bellman Expectation and Optimality derivations, plus a step-by-step numerical hand calculation for an unbalanced state ($s_0 = 61$). | Mathematically verifies why the optimal policy commands a phase switch when opposing queues accumulate, proving value propagation through the Bellman equation. |
+| **Policy Influence & Analysis (Item 7)** | Brief notes on random tie-breaking. | In-depth analysis of $\epsilon$-greedy exploration decay, the resolution of the infinite starvation deadlock on seed 1007, and dynamic green allocation across 3 demand regimes. | Explains the physical and empirical mechanism through which the learned policy stabilizes queues across shifting traffic conditions. |
+| **Interactive Prototype / Demo (Items 8 & 9a)** | Streamlit web application and batch GIF renderer. | Dedicated lightweight CLI MDP prototype (`src/traffic_rl/mdp_demo.py`) with unit test suite (`tests/test_mdp_demo.py`). | Allows students and evaluators to trace state discretization, step-by-step transitions, reward decomposition, and live Bellman action value evaluations in seconds without GPU or external packages. |
+| **MDP vs. Future RL Distinction (Item 9b)** | Mixed architectural discussions. | Dedicated documentation (`docs/mdp_vs_rl_distinction.md`) separating model-based MDP design from model-free RL and future frontiers (PPO, MARL, Dec-POMDP). | Prevents conflating problem modeling with learning algorithms, providing a clear roadmap for future multi-agent and continuous RL extensions. |
+| **Documentation & Navigation (Item 10)** | General architecture notes. | Complete master assignment report (`docs/assignment_rl_fundamentals.md`) and assignment changelog (`docs/CHANGELOG_ASSIGNMENT.md`). | Organizes all assignment deliverables into structured, self-contained reference documents supported by formal literature citations. |
+
+### Assignment Deliverables in `docs/`:
+- **[Complete Assignment Report (10-Point Analysis)](docs/assignment_rl_fundamentals.md):** The comprehensive submission covering all theoretical, mathematical, diagrammatic, and empirical questions.
+- **[Clear Distinction: MDP Design vs. Future RL Implementation](docs/mdp_vs_rl_distinction.md):** Dedicated analysis of Item 9 isolating the formal MDP model from computational RL algorithms and future multi-agent frontiers.
+- **[Assignment Changelog & Approach](docs/CHANGELOG_ASSIGNMENT.md):** Detailed record of changes, approach, and implementation methodology.
+
+---
+
 ## Results
 
 Average wait per vehicle over 10 held-out seeds (1000–1009). No agent was trained on these
@@ -89,6 +110,12 @@ pip install -e ".[dev]"
 ./scripts/check.sh                 # lint, format, types, tests, 5-episode smoke train
 ```
 
+Run the standalone MDP prototype walkthrough (evaluating state transitions and Bellman action values):
+
+```bash
+python -m traffic_rl.mdp_demo --steps 6
+```
+
 Train, evaluate and render the GIF:
 
 ```bash
@@ -140,6 +167,7 @@ Implemented and measured:
 - `scripts/check.sh`: lint, format, type check, tests and a short smoke training run.
   A pre-push hook and the CI workflow both run it.
 - the live Streamlit deployment, redeployed from `main` on every push
+- the MDP walkthrough demo (`src/traffic_rl/mdp_demo.py`) with Bellman action value calculations
 
 Not done:
 
@@ -158,11 +186,13 @@ src/traffic_rl/
   agents/        Q-learning, SARSA, DQN
   baselines/     fixed timer
   episode.py     the single episode loop every controller runs through
+  mdp_demo.py    standalone MDP walkthrough and Bellman evaluation prototype
   train.py       training CLI
   evaluate.py    held-out comparison, results table and plots
   demo.py        demo GIF
 app/             Streamlit demo
 configs/         hyperparameters
+docs/            formal MDP report, distinction analysis, changelog, architecture
 results/         committed models, evaluation table, plots and GIF
 tests/           pytest suite
 ```
